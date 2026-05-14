@@ -1,6 +1,6 @@
 import JobCard from "./JobCard";
 
-export default function JobList({ jobs }) {
+export default function JobList({ jobs, savedJobs, setSavedJobs }) {
   if (jobs.length === 0) {
     return (
       <div className="text-center py-20 text-gray-400">
@@ -13,7 +13,12 @@ export default function JobList({ jobs }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {jobs.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <JobCard
+          key={job.id}
+          job={job}
+          savedJobs={savedJobs}
+          setSavedJobs={setSavedJobs}
+        />
       ))}
     </div>
   );

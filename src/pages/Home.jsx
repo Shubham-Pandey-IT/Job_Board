@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 import FilterBar from "../components/FilterBar";
 import JobList from "../components/JobList";
 
-export default function Home() {
+export default function Home({ savedJobs, setSavedJobs }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({ type: "", role: "" });
 
@@ -12,10 +12,8 @@ export default function Home() {
     const matchesSearch =
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.company.toLowerCase().includes(searchQuery.toLowerCase());
-
     const matchesType = filters.type === "" || job.type === filters.type;
     const matchesRole = filters.role === "" || job.role === filters.role;
-
     return matchesSearch && matchesType && matchesRole;
   });
 
@@ -31,7 +29,7 @@ export default function Home() {
         <FilterBar filters={filters} setFilters={setFilters} />
       </div>
 
-      <JobList jobs={filtered} />
+      <JobList jobs={filtered} savedJobs={savedJobs} setSavedJobs={setSavedJobs} />
     </main>
   );
 }
