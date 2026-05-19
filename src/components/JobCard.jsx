@@ -1,17 +1,21 @@
 import { MapPin, Bookmark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addSaved, removeSaved } from "../store/savedSlice";
 
-export default function JobCard({ job, savedJobs, setSavedJobs }) {
+export default function JobCard({ job }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const savedJobs = useSelector((state) => state.saved.savedJobs);
 
-  const isSaved = savedJobs?.some((j) => j.id === job.id);
+  const isSaved = savedJobs.some((j) => j.id === job.id);
 
   const handleSave = (e) => {
     e.stopPropagation();
     if (isSaved) {
-      setSavedJobs(savedJobs.filter((j) => j.id !== job.id));
+      dispatch(removeSaved(job.id));
     } else {
-      setSavedJobs([...savedJobs, job]);
+      dispatch(addSaved(job));
     }
   };
 
@@ -39,12 +43,8 @@ export default function JobCard({ job, savedJobs, setSavedJobs }) {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <span className="text-xs bg-rose-50 text-rose-500 px-3 py-1 rounded-full font-medium">
-          {job.type}
-        </span>
-        <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">
-          {job.role}
-        </span>
+        <span className="text-xs bg-rose-50 text-rose-500 px-3 py-1 rounded-full font-medium">{job.type}</span>
+        <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">{job.role}</span>
       </div>
 
       <div className="flex justify-between items-center mt-auto pt-2 border-t border-gray-100">

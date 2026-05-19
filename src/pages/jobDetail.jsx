@@ -1,24 +1,18 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addSaved, removeSaved } from "../store/savedSlice";
+import { addTracker } from "../store/trackerSlice";
 import { jobs } from "../data/jobs";
-import {
-  MapPin,
-  Briefcase,
-  DollarSign,
-  Clock,
-  ArrowLeft,
-  Bookmark,
-  ExternalLink,
-} from "lucide-react";
+import { MapPin, Briefcase, DollarSign, Clock, ArrowLeft, Bookmark, ExternalLink } from "lucide-react";
 import { useState } from "react";
 
-export default function JobDetail({
-  savedJobs,
-  setSavedJobs,
-  trackerJobs,
-  setTrackerJobs,
-}) {
+export default function JobDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const savedJobs = useSelector((state) => state.saved.savedJobs);
+  const trackerJobs = useSelector((state) => state.tracker.trackerJobs);
 
   const job = jobs.find((j) => j.id === Number(id));
   const [applied, setApplied] = useState(false);
@@ -27,10 +21,7 @@ export default function JobDetail({
     return (
       <div className="text-center py-20 text-gray-400">
         <p className="text-lg font-medium">Job not found</p>
-        <button
-          onClick={() => navigate("/")}
-          className="mt-4 text-rose-500 underline text-sm"
-        >
+        <button onClick={() => navigate("/")} className="mt-4 text-rose-500 underline text-sm">
           Go back
         </button>
       </div>
@@ -41,23 +32,23 @@ export default function JobDetail({
 
   const handleSave = () => {
     if (isSaved) {
-      setSavedJobs(savedJobs.filter((j) => j.id !== job.id));
+      dispatch(removeSaved(job.id));
     } else {
-      setSavedJobs([...savedJobs, job]);
+      dispatch(addSaved(job));
     }
   };
 
   const handleApply = () => {
     const alreadyAdded = trackerJobs.some((j) => j.id === job.id);
     if (!alreadyAdded) {
-      setTrackerJobs([...trackerJobs, { ...job, status: "Applied" }]);
+      dispatch(addTracker({ ...job, status: "Applied" }));
     }
     setApplied(true);
   };
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      {/* BACK BUTTON */}
+
       <button
         onClick={() => navigate(-1)}
         className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition mb-6"
@@ -66,7 +57,6 @@ export default function JobDetail({
         Back to Jobs
       </button>
 
-      {/* Header */}
       <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-5">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-4">
@@ -95,7 +85,6 @@ export default function JobDetail({
           </button>
         </div>
 
-        {/* Info */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <MapPin size={15} className="text-rose-400" />
@@ -115,7 +104,6 @@ export default function JobDetail({
           </div>
         </div>
 
-        {/* TAGS */}
         <div className="flex gap-2 mt-4">
           <span className="text-xs bg-rose-50 text-rose-500 px-3 py-1 rounded-full font-medium">
             {job.type}
@@ -126,33 +114,22 @@ export default function JobDetail({
         </div>
       </div>
 
-      {/* Description */}
       <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-5">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">
-          About the Role
-        </h2>
-        <p className="text-gray-600 text-sm leading-relaxed">
-          {job.description}
-        </p>
+        <h2 className="text-base font-semibold text-gray-900 mb-3">About the Role</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">{job.description}</p>
       </div>
 
       <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">
-          Requirements
-        </h2>
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Requirements</h2>
         <div className="flex flex-wrap gap-2">
           {job.requirements.map((req) => (
-            <span
-              key={req}
-              className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-medium"
-            >
+            <span key={req} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-medium">
               {req}
             </span>
           ))}
         </div>
       </div>
 
-      {/* APPLY BUTTON */}
       <button
         onClick={handleApply}
         disabled={applied}
@@ -163,8 +140,9 @@ export default function JobDetail({
         }`}
       >
         <ExternalLink size={16} />
-        {applied ? "Applied" : "Apply Now"}
+        {applied ? "Applied ✓ — Check Tracker" : "Apply Now"}
       </button>
+
     </div>
   );
 }
