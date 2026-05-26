@@ -51,16 +51,16 @@ export default function JobDetail() {
 
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition mb-6"
+        className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition mb-6"
       >
         <ArrowLeft size={16} />
         Back to Jobs
       </button>
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-5">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 mb-5">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-4">
-            <div className="h-14 w-14 rounded-xl overflow-hidden border border-gray-200 bg-white flex items-center justify-center">
+            <div className="h-14 w-14 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white flex items-center justify-center">
               <img
                 src={`https://www.google.com/s2/favicons?domain=${job.company}.com&sz=64`}
                 alt={job.company}
@@ -68,8 +68,8 @@ export default function JobDetail() {
               />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{job.title}</h1>
-              <p className="text-gray-500 text-sm mt-0.5">{job.company}</p>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">{job.title}</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{job.company}</p>
             </div>
           </div>
 
@@ -78,7 +78,7 @@ export default function JobDetail() {
             className={`p-2 rounded-full border transition ${
               isSaved
                 ? "bg-rose-50 border-rose-200 text-rose-500"
-                : "border-gray-200 text-gray-400 hover:text-rose-500"
+                : "border-gray-200 dark:border-gray-700 text-gray-400 hover:text-rose-500"
             }`}
           >
             <Bookmark size={20} className={isSaved ? "fill-rose-500" : ""} />
@@ -86,44 +86,44 @@ export default function JobDetail() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
             <MapPin size={15} className="text-rose-400" />
             <span>{job.location}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
             <Briefcase size={15} className="text-rose-400" />
             <span>{job.type}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
             <DollarSign size={15} className="text-rose-400" />
             <span>{job.salary}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
             <Clock size={15} className="text-rose-400" />
             <span>{job.posted}</span>
           </div>
         </div>
 
         <div className="flex gap-2 mt-4">
-          <span className="text-xs bg-rose-50 text-rose-500 px-3 py-1 rounded-full font-medium">
+          <span className="text-xs bg-rose-50 dark:bg-rose-900/30 text-rose-500 px-3 py-1 rounded-full font-medium">
             {job.type}
           </span>
-          <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-medium">
+          <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-3 py-1 rounded-full font-medium">
             {job.role}
           </span>
         </div>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-5">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">About the Role</h2>
-        <p className="text-gray-600 text-sm leading-relaxed">{job.description}</p>
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 mb-5">
+        <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-3">About the Role</h2>
+        <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{job.description}</p>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Requirements</h2>
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 mb-6">
+        <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-3">Requirements</h2>
         <div className="flex flex-wrap gap-2">
           {job.requirements.map((req) => (
-            <span key={req} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-medium">
+            <span key={req} className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1.5 rounded-full font-medium">
               {req}
             </span>
           ))}

@@ -12,10 +12,8 @@ export default function FilterBar({ filters, setFilters }) {
 
   return (
     <div className="flex flex-col gap-3">
-
-      {/* TYPE */}
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs text-gray-500 font-medium">Type:</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Type:</span>
         {types.map((type) => (
           <button
             key={type}
@@ -23,7 +21,7 @@ export default function FilterBar({ filters, setFilters }) {
             className={`text-xs px-4 py-1.5 rounded-full border font-medium transition ${
               (filters.type === "" && type === "All") || filters.type === type
                 ? "bg-rose-500 text-white border-rose-500"
-                : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-400"
             }`}
           >
             {type}
@@ -31,9 +29,8 @@ export default function FilterBar({ filters, setFilters }) {
         ))}
       </div>
 
-      {/* ROLE */}
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs text-gray-500 font-medium">Role:</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Role:</span>
         {roles.map((role) => (
           <button
             key={role}
@@ -41,14 +38,13 @@ export default function FilterBar({ filters, setFilters }) {
             className={`text-xs px-4 py-1.5 rounded-full border font-medium transition ${
               (filters.role === "" && role === "All") || filters.role === role
                 ? "bg-rose-500 text-white border-rose-500"
-                : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+                : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-400"
             }`}
           >
             {role}
           </button>
         ))}
       </div>
-
     </div>
   );
 }

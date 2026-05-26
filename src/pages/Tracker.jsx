@@ -6,10 +6,10 @@ import { Briefcase, MapPin } from "lucide-react";
 const statusOptions = ["Applied", "Interview", "Rejected", "Offer"];
 
 const statusStyles = {
-  Applied:   "bg-blue-50 text-blue-600 border-blue-200",
-  Interview: "bg-yellow-50 text-yellow-600 border-yellow-200",
-  Rejected:  "bg-red-50 text-red-500 border-red-200",
-  Offer:     "bg-green-50 text-green-600 border-green-200",
+  Applied:   "bg-blue-50 dark:bg-blue-900/30 text-blue-600 border-blue-200 dark:border-blue-800",
+  Interview: "bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 border-yellow-200 dark:border-yellow-800",
+  Rejected:  "bg-red-50 dark:bg-red-900/30 text-red-500 border-red-200 dark:border-red-800",
+  Offer:     "bg-green-50 dark:bg-green-900/30 text-green-600 border-green-200 dark:border-green-800",
 };
 
 export default function Tracker() {
@@ -33,16 +33,16 @@ export default function Tracker() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">My Applications</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Applications</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
           {trackerJobs.length} application{trackerJobs.length > 1 ? "s" : ""} tracked
         </p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {statusOptions.map((status) => (
-          <div key={status} className="bg-white border border-gray-200 rounded-2xl p-4 text-center">
-            <p className="text-2xl font-bold text-gray-900">
+          <div key={status} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 text-center">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {trackerJobs.filter((j) => j.status === status).length}
             </p>
             <p className={`text-xs font-medium mt-1 px-2 py-0.5 rounded-full border inline-block ${statusStyles[status]}`}>
@@ -54,9 +54,9 @@ export default function Tracker() {
 
       <div className="flex flex-col gap-4">
         {trackerJobs.map((job) => (
-          <div key={job.id} className="bg-white border border-gray-200 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div key={job.id} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
             <div onClick={() => navigate(`/jobs/${job.id}`)} className="flex items-center gap-3 cursor-pointer flex-1">
-              <div className="h-10 w-10 rounded-xl overflow-hidden border border-gray-200 bg-white flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white flex items-center justify-center">
                 <img
                   src={`https://www.google.com/s2/favicons?domain=${job.company}.com&sz=64`}
                   alt={job.company}
@@ -64,9 +64,9 @@ export default function Tracker() {
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 text-[15px]">{job.title}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white text-[15px]">{job.title}</h3>
                 <div className="flex items-center gap-3 mt-0.5">
-                  <p className="text-gray-500 text-sm">{job.company}</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">{job.company}</p>
                   <div className="flex items-center gap-1 text-gray-400 text-xs">
                     <MapPin size={11} />
                     <span>{job.location}</span>
@@ -88,7 +88,7 @@ export default function Tracker() {
 
               <button
                 onClick={() => dispatch(removeTracker(job.id))}
-                className="text-xs text-gray-400 hover:text-red-500 transition border border-gray-200 px-3 py-1.5 rounded-full"
+                className="text-xs text-gray-400 hover:text-red-500 transition border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full"
               >
                 Remove
               </button>

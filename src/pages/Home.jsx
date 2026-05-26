@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 import FilterBar from "../components/FilterBar";
 import JobList from "../components/JobList";
 
-export default function Home({ savedJobs, setSavedJobs }) {
+export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({ type: "", role: "" });
 
@@ -20,8 +20,12 @@ export default function Home({ savedJobs, setSavedJobs }) {
   return (
     <main className="max-w-6xl mx-auto px-6 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Find your next job 🚀</h1>
-        <p className="text-gray-500 text-sm mt-1">Browse through latest openings</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          Find your next job 🚀
+        </h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+          Browse through latest openings
+        </p>
       </div>
 
       <div className="flex flex-col gap-4 mb-8">
@@ -29,7 +33,7 @@ export default function Home({ savedJobs, setSavedJobs }) {
         <FilterBar filters={filters} setFilters={setFilters} />
       </div>
 
-      <JobList jobs={filtered} savedJobs={savedJobs} setSavedJobs={setSavedJobs} />
+      <JobList jobs={filtered} />
     </main>
   );
 }
